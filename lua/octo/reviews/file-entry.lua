@@ -519,6 +519,21 @@ function M._create_buffer(opts)
     path = opts.path,
     split = string.upper(opts.split),
   })
+
+  vim.api.nvim_exec_autocmds("User", {
+    pattern = "OctoBufferCreated",
+    modeline = false,
+    data = {
+      bufnr = bufnr,
+      kind = "review_diff",
+      -- Only expose essential data
+      path = opts.path,
+      side = string.lower(opts.split),  -- "left" or "right"
+      repo = opts.repo,
+      status = opts.status,  -- file status (M, A, D, R, etc.)
+    }
+  })
+
   return bufnr
 end
 

@@ -162,6 +162,16 @@ function FilePanel:init_buffer()
   self:render()
   self:redraw()
 
+  vim.api.nvim_exec_autocmds("User", {
+    pattern = "OctoBufferCreated",
+    modeline = false,
+    buffer = bn,
+    data = {
+      kind = "file_panel",
+      file_count = #self.files,
+    },
+  })
+
   return bn
 end
 

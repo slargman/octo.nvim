@@ -361,6 +361,17 @@ function M.create_buffer(kind, obj, repo, create)
     octo_buffer:async_fetch_taggable_users()
     octo_buffer:async_fetch_issues()
   end
+
+  vim.api.nvim_exec_autocmds("User", {
+    pattern = "OctoBufferCreated",
+    modeline = false,
+    buffer = bufnr,
+    data = {
+      repo = repo,
+      number = obj.number,
+      kind = kind,
+    },
+  })
 end
 
 return M
