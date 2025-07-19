@@ -18,11 +18,35 @@ You should have the following installed in your system:
 - Git - for version control
 - `stylua` - for code formatting (install via `cargo install stylua` or your package manager)
 - TODO(determine why this is installed in tests.yml workflow) `fd-find` - for file searching (optional but recommended)
+- `make` - for running development commands (usually pre-installed on Unix systems)
 
 For testing:
 
 - plenary.nvim - will be automatically installed when running tests
 - `lua-language-server` - for type checking (optional but recommended)
+
+### Quick Start
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/pwntester/octo.nvim.git
+   cd octo.nvim
+   ```
+
+2. Set up development environment:
+   ```bash
+   make setup
+   ```
+
+3. Run tests to verify everything works:
+   ```bash
+   make test
+   ```
+
+4. See all available commands:
+   ```bash
+   make help
+   ```
 
 ## Testing
 
@@ -37,7 +61,7 @@ Tests are located in the `lua/tests/` directory with the following structure:
   - `gh_spec.lua` - GitHub CLI integration tests
   - `utils_spec.lua` - Utility function tests
   - `autocommand_spec.lua` - Autocommand tests
-- `lua/tests/minimal_init.vim` - Test initialization script
+- `lua/tests/minimal_init.lua` - Test initialization script
 - `lua/tests/test_utils.lua` - Test helper functions
 
 ### Running Tests
@@ -45,14 +69,13 @@ Tests are located in the `lua/tests/` directory with the following structure:
 To run all tests:
 
 ```bash
-nvim --headless -c "PlenaryBustedDirectory lua/tests/plenary/ {minimal_init = 'lua/tests/minimal_init.vim'}"
+make test
 ```
 
-To run a specific test file:
-
-```bash
-nvim --headless -c "PlenaryBustedFile lua/tests/plenary/config_spec.lua {minimal_init = 'lua/tests/minimal_init.vim'}"
-```
+This will:
+- Install dependencies if needed
+- Run all test files in `lua/tests/`
+- Show a summary of passed/failed tests
 
 ### Writing Tests
 
@@ -128,16 +151,10 @@ For convenience, you can use `lua-language-server` in your editor which will pro
    export PATH="$PWD/luals/bin:$PATH"
    ```
 
-2. Clone dependencies (required for type checking):
+2. Install dependencies (required for type checking):
 
    ```bash
-   mkdir -p deps
-   git clone --depth 1 https://github.com/nvim-lua/plenary.nvim deps/plenary.nvim
-   git clone --depth 1 https://github.com/folke/snacks.nvim deps/snacks.nvim
-   git clone --depth 1 https://github.com/nvim-telescope/telescope.nvim deps/telescope.nvim
-   git clone --depth 1 https://github.com/ibhagwan/fzf-lua deps/fzf-lua
-   git clone --depth 1 https://github.com/nvim-tree/nvim-web-devicons deps/nvim-web-devicons
-   git clone --depth 1 https://github.com/Bilal2453/luvit-meta deps/luvit-meta
+   make setup
    ```
 
 3. Run type checking:
@@ -192,6 +209,20 @@ about its design and usage.
 
 Note that a single PR should not be too large. If heavy changes are required, it's better to separate the changes
 to a few individual PRs.
+
+### Code Style
+
+We use [StyLua](https://github.com/JohnnyMorganz/StyLua) for code formatting. Before submitting a PR:
+
+1. Check your code style:
+   ```bash
+   make lint
+   ```
+
+2. Fix any style issues:
+   ```bash
+   make format
+   ```
 
 ### Code review
 
