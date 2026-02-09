@@ -313,6 +313,17 @@ function Review:collect_submit_info()
   vim.api.nvim_set_current_win(winid)
   vim.bo[bufnr].syntax = "octo"
   utils.apply_mappings("submit_win", bufnr)
+
+  vim.api.nvim_exec_autocmds("User", {
+    pattern = "OctoBufferCreated",
+    modeline = false,
+    data = {
+      buffer = bufnr,
+      -- repo = opts.repo,
+      kind = "submit_win",
+    },
+  })
+
   vim.cmd [[normal G]]
 end
 

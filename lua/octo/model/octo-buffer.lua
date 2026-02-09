@@ -398,6 +398,15 @@ function OctoBuffer:configure()
   end)
 
   self:apply_mappings()
+  vim.api.nvim_exec_autocmds("User", {
+    pattern = "OctoBufferCreated",
+    modeline = false,
+    data = {
+      buffer = self.bufnr,
+      repo = self.repo,
+      kind = self.kind,
+    },
+  })
 end
 
 ---Accumulates all the taggable users into a single list that

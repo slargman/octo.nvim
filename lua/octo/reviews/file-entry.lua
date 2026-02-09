@@ -524,14 +524,14 @@ function M._create_buffer(opts)
     pattern = "OctoBufferCreated",
     modeline = false,
     data = {
-      bufnr = bufnr,
+      buffer = bufnr,
+      repo = opts.repo,
       kind = "review_diff",
       -- Only expose essential data
       path = opts.path,
-      side = string.lower(opts.split),  -- "left" or "right"
-      repo = opts.repo,
-      status = opts.status,  -- file status (M, A, D, R, etc.)
-    }
+      side = string.lower(opts.split), -- "left" or "right"
+      status = opts.status, -- file status (M, A, D, R, etc.)
+    },
   })
 
   return bufnr

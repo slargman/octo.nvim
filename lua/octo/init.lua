@@ -365,8 +365,8 @@ function M.create_buffer(kind, obj, repo, create)
   vim.api.nvim_exec_autocmds("User", {
     pattern = "OctoBufferCreated",
     modeline = false,
-    buffer = bufnr,
     data = {
+      buffer = bufnr,
       repo = repo,
       number = obj.number,
       kind = kind,

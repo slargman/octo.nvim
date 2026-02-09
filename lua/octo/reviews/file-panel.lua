@@ -165,8 +165,8 @@ function FilePanel:init_buffer()
   vim.api.nvim_exec_autocmds("User", {
     pattern = "OctoBufferCreated",
     modeline = false,
-    buffer = bn,
     data = {
+      buffer = bn,
       kind = "file_panel",
       file_count = #self.files,
     },
